@@ -205,6 +205,26 @@
       
   </div>
 
+  <div class="weather">
+  <!-- 《添加“心知天气”-->
+    <div id="tp-weather-widget"></div>
+  <script>
+    (function(a,h,g,f,e,d,c,b){b=function(){d=h.createElement(g);c=h.getElementsByTagName(g)[0];d.src=e;d.charset="utf-8";d.async=1;c.parentNode.insertBefore(d,c)};a["SeniverseWeatherWidgetObject"]=f;a[f]||(a[f]=function(){(a[f].q=a[f].q||[]).push(arguments)});a[f].l=+new Date();if(a.attachEvent){a.attachEvent("onload",b)}else{a.addEventListener("load",b,false)}}(window,document,"script","SeniverseWeatherWidget","//cdn.sencdn.com/widget2/static/js/bundle.js?t="+parseInt((new Date().getTime() / 100000000).toString(),10)));
+    window.SeniverseWeatherWidget('show', {
+      flavor: "bubble",
+      location: "WX4FBXXFKE4F",
+      geolocation: true,
+      language: "zh-Hans",
+      unit: "c",
+      theme: "light",
+      token: "6afa23ed-b775-4b92-98c0-6b9f4e77206d",
+      hover: "disabled",
+      container: "tp-weather-widget"
+    })
+  </script>
+  <!-- 添加“心知天气”》-->
+  </div>
+
   <div class="site-nav-toggle">
     <button>
       <span class="btn-bar"></span>
@@ -1002,3 +1022,5 @@
 </html>
 <!--clink special effects-->
 <script type="text/javascript" src="/js/src/love.js"></script>
+<!--崩溃欺骗-->
+<script type="text/javascript" src="/js/src/crash_cheat.js"></script>
