@@ -1822,7 +1822,7 @@ pre .javascript .function {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #1fb6f5;
+  background: #597324;
 }
 .links-of-blogroll {
   font-size: 13px;
@@ -2666,4 +2666,21 @@ embed {
   padding: 25px;
   -webkit-box-shadow: 0 0 5px rgba(202,203,203,0.5);
   -moz-box-shadow: 0 0 5px rgba(202,203,204,0.5);
+}
+.common {
+  display: flex;
+  background-size: 1.5rem;
+  opacity: 0.85;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 1.5rem;
+  width: 1.5rem;
+  border-radius: 0rem;
+/*鼠标停留在图标上时，图标呈现发光效果*/
+}
+.common:hover {
+  opacity: 1;
+}
+.github {
+  background-image: url("/images/GitHub.svg");
 }
