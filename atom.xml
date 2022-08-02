@@ -6,7 +6,7 @@
   <link href="http://sankrea.github.io/atom.xml" rel="self"/>
   
   <link href="http://sankrea.github.io/"/>
-  <updated>2022-08-02T03:23:04.885Z</updated>
+  <updated>2022-08-02T06:02:11.136Z</updated>
   <id>http://sankrea.github.io/</id>
   
   <author>
@@ -21,7 +21,7 @@
     <link href="http://sankrea.github.io/posts/d87f7e0c/"/>
     <id>http://sankrea.github.io/posts/d87f7e0c/</id>
     <published>2022-08-02T02:06:39.000Z</published>
-    <updated>2022-08-02T03:23:04.885Z</updated>
+    <updated>2022-08-02T06:02:11.136Z</updated>
     
     <content type="html"><![CDATA[<h1 id="just-for-test"><a href="#just-for-test" class="headerlink" title="just for test"></a>just for test</h1>]]></content>
     
@@ -34,6 +34,8 @@
     
     
     
+    <category term="tag" scheme="http://sankrea.github.io/tags/tag/"/>
+    
   </entry>
   
   <entry>
@@ -43,12 +45,12 @@
     <published>2022-07-30T07:57:01.798Z</published>
     <updated>2022-08-02T02:57:22.067Z</updated>
     
-    <content type="html"><![CDATA[<p>Welcome to black lizard planet, which is the gathering place for black lizard people who are preparing to colonize the earth. Welcome to join us, friends of hometown.Welcome to black lizard planet, which is the gathering place for black lizard people who are preparing to colonize the earth. Welcome to join us, friends of hometown.</p>]]></content>
+    <content type="html"><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>Welcome to black lizard planet, which is the gathering place for black lizard people who are preparing to colonize the earth. Welcome to join us, friends of hometown.Welcome to black lizard planet, which is the gathering place for black lizard people who are preparing to colonize the earth. Welcome to join us, friends of hometown.</p>]]></content>
     
     
       
       
-    <summary type="html">&lt;p&gt;Welcome to black lizard planet, which is the gathering place for black lizard people who are preparing to colonize the earth. Welcome to </summary>
+    <summary type="html">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css&quot;&gt;&lt;p&gt;Welcome to black lizard planet, which </summary>
       
     
     
