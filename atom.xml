@@ -6,7 +6,7 @@
   <link href="http://sankrea.github.io/atom.xml" rel="self"/>
   
   <link href="http://sankrea.github.io/"/>
-  <updated>2022-08-02T07:31:26.108Z</updated>
+  <updated>2022-08-03T07:00:50.250Z</updated>
   <id>http://sankrea.github.io/</id>
   
   <author>
@@ -17,18 +17,38 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>1</title>
+    <link href="http://sankrea.github.io/posts/83dcefb7/"/>
+    <id>http://sankrea.github.io/posts/83dcefb7/</id>
+    <published>2022-08-03T06:59:52.000Z</published>
+    <updated>2022-08-03T07:00:50.250Z</updated>
+    
+    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>这只是一个测试文本</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;\assets\css\APlayer.min.css&quot;&gt;&lt;script src=&quot;\assets\js\APlayer.min.js&quot; cla</summary>
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
     <title>test</title>
     <link href="http://sankrea.github.io/posts/d87f7e0c/"/>
     <id>http://sankrea.github.io/posts/d87f7e0c/</id>
     <published>2022-08-02T02:06:39.000Z</published>
-    <updated>2022-08-02T07:31:26.108Z</updated>
+    <updated>2022-08-03T03:44:39.413Z</updated>
     
-    <content type="html"><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><h1 id="just-for-test"><a href="#just-for-test" class="headerlink" title="just for test"></a>just for test</h1>]]></content>
+    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><h1 id="Hello-World"><a href="#Hello-World" class="headerlink" title="Hello World"></a>Hello World</h1><p>hello world</p>]]></content>
     
     
       
       
-    <summary type="html">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css&quot;&gt;&lt;h1 id=&quot;just-for-test&quot;&gt;&lt;a href=&quot;#just-for</summary>
+    <summary type="html">&lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;\assets\css\APlayer.min.css&quot;&gt;&lt;script src=&quot;\assets\js\APlayer.min.js&quot; cla</summary>
       
     
     
@@ -49,12 +69,12 @@
     <published>2022-07-30T07:57:01.798Z</published>
     <updated>2022-08-02T02:57:22.067Z</updated>
     
-    <content type="html"><![CDATA[<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>Welcome to black lizard planet, which is the gathering place for black lizard people who are preparing to colonize the earth. Welcome to join us, friends of hometown.Welcome to black lizard planet, which is the gathering place for black lizard people who are preparing to colonize the earth. Welcome to join us, friends of hometown.</p>]]></content>
+    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>Welcome to black lizard planet, which is the gathering place for black lizard people who are preparing to colonize the earth. Welcome to join us, friends of hometown.Welcome to black lizard planet, which is the gathering place for black lizard people who are preparing to colonize the earth. Welcome to join us, friends of hometown.</p>]]></content>
     
     
       
       
-    <summary type="html">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css&quot;&gt;&lt;p&gt;Welcome to black lizard planet, which </summary>
+    <summary type="html">&lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;\assets\css\APlayer.min.css&quot;&gt;&lt;script src=&quot;\assets\js\APlayer.min.js&quot; cla</summary>
       
     
     
