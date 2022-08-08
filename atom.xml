@@ -6,7 +6,7 @@
   <link href="http://sankrea.github.io/atom.xml" rel="self"/>
   
   <link href="http://sankrea.github.io/"/>
-  <updated>2022-08-03T11:09:13.673Z</updated>
+  <updated>2022-08-08T09:50:57.253Z</updated>
   <id>http://sankrea.github.io/</id>
   
   <author>
@@ -15,6 +15,29 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>萨马拉之约</title>
+    <link href="http://sankrea.github.io/posts/7a082be0/"/>
+    <id>http://sankrea.github.io/posts/7a082be0/</id>
+    <published>2022-08-08T09:34:22.000Z</published>
+    <updated>2022-08-08T09:50:57.253Z</updated>
+    
+    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><h1 id="第一章-折翼天使"><a href="#第一章-折翼天使" class="headerlink" title="第一章 折翼天使"></a>第一章 折翼天使</h1><p>他看见折翼的天使从天空坠落。</p><span id="more"></span>]]></content>
+    
+    
+    <summary type="html">&lt;h1 id=&quot;第一章-折翼天使&quot;&gt;&lt;a href=&quot;#第一章-折翼天使&quot; class=&quot;headerlink&quot; title=&quot;第一章 折翼天使&quot;&gt;&lt;/a&gt;第一章 折翼天使&lt;/h1&gt;&lt;p&gt;他看见折翼的天使从天空坠落。&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="幻世" scheme="http://sankrea.github.io/categories/%E5%B9%BB%E4%B8%96/"/>
+    
+    <category term="第一卷-萨马拉之约" scheme="http://sankrea.github.io/categories/%E5%B9%BB%E4%B8%96/%E7%AC%AC%E4%B8%80%E5%8D%B7-%E8%90%A8%E9%A9%AC%E6%8B%89%E4%B9%8B%E7%BA%A6/"/>
+    
+    
+    <category term="小说" scheme="http://sankrea.github.io/tags/%E5%B0%8F%E8%AF%B4/"/>
+    
+  </entry>
   
   <entry>
     <title>从军</title>
