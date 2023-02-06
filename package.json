@@ -21,7 +21,7 @@
     "hexo-asset-image": "^1.0.0",
     "hexo-autonofollow": "^1.0.1",
     "hexo-butterfly-categories-card": "^1.0.0",
-    "hexo-deployer-git": "^3.0.0",
+    "hexo-deployer-git": "^4.0.0",
     "hexo-filter-github-emojis": "^3.0.5",
     "hexo-footnotes": "^1.0.2",
     "hexo-generator-archive": "^1.0.0",
