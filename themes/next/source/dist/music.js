@@ -42,11 +42,11 @@ const ap = new APlayer({
             cover: 'http://p2.music.126.net/39Wb7Nm5AZMi4RtKWIK7Mg==/109951165995189664.jpg'
       },
       {
-        name: 'Layers',
-            artist: 'Aimee Blackschleger',
+        name: 'Viva La Vida (feat. Daniele Vitale SAX)',
+            artist: 'Karolina Protsenko / Daniele Vitale Sax',
 			//  http://music.163.com/song/media/outer/url?id=  .mp3
-            url: 'http://music.163.com/song/media/outer/url?id=484056480.mp3',
-            cover: 'http://p2.music.126.net/eQOijUIMx1yTA6jdg3oHKw==/109951166197969633.jpg'
+            url: 'http://music.163.com/song/media/outer/url?id=1902474653.mp3',
+            cover: 'http://p1.music.126.net/Lt6Z9POY1UFTycB4xcq-wQ==/109951166715668368.jpg'
       }
  
     
