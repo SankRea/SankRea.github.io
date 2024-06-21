@@ -154,3 +154,10 @@ tag_cloud:
     textHeight: 20
     outlineColor: '#E2E1D1'
     maxSpeed: 0.1 
+
+githubEmojis:
+  enable: true
+  className: github-emoji
+  inject: true
+  styles:
+  customEmojis:
