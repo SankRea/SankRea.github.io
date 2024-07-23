@@ -26,15 +26,6 @@ const ap = new APlayer({
             cover: 'http://p1.music.126.net/X023gEyekdsS9_NZ0Nz_6g==/1656964023064581.jpg'
       },
       {
-        name: '错过的烟火',
-            artist: '周杰伦',
-			//  网易云为第一方案，当网易云无法使用就上传到onedrive，利用共享链接转换后使用
-      // 转换链接：https://onedrive.gimhoy.com/
-            url: 'https://link.jscdn.cn/1drv/aHR0cHM6Ly8xZHJ2Lm1zL3UvcyFBbHN6WUNDTGFTVURpWE0tRk1CVXlQZVktX2VHP2U9OXk3QktC.flac',
-            cover: 'http://p2.music.126.net/VldbGI7kjph0TeIbttQHGQ==/109951167672625652.jpg'
-      },
-      
-      {
         name: '富士山下',
             artist: '陈奕迅',
 			//  http://music.163.com/song/media/outer/url?id=  .mp3
