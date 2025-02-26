@@ -5,20 +5,6 @@ const ap = new APlayer({
     autoplay: false,
     audio: [
       {
-        name: 'ふわふわ♪',
-            artist: '牧野由依',
-			//  http://music.163.com/song/media/outer/url?id=  .mp3
-            url: 'http://music.163.com/song/media/outer/url?id=609890.mp3',
-            cover: 'http://p1.music.126.net/I31NLw0rw2kPh_nakck9Jw==/109951166200147817.jpg'
-      },
-      {
-        name: 'stronger',
-            artist: 'Kelly Clarkson',
-			//  http://music.163.com/song/media/outer/url?id=  .mp3
-            url: 'http://music.163.com/song/media/outer/url?id=26569168.mp3',
-            cover: 'https://t14.baidu.com/it/u=2046206343,4206694074&fm=179&app=42&size=w931&n=0&f=JPEG&fmt=auto?s=4690EB2784EA47BF8995D0C80300B0F3&sec=1659718800&t=56d2323f7b2518de873bd2de533cec1f'
-      },
-      {
         name: 'Ordinary day',
             artist: 'Melanie Penn',
 			//  http://music.163.com/song/media/outer/url?id=  .mp3
@@ -26,20 +12,11 @@ const ap = new APlayer({
             cover: 'http://p1.music.126.net/X023gEyekdsS9_NZ0Nz_6g==/1656964023064581.jpg'
       },
       {
-        name: '富士山下',
-            artist: '陈奕迅',
+        name: 'Ordinary day',
+            artist: 'Melanie Penn',
 			//  http://music.163.com/song/media/outer/url?id=  .mp3
-            url: 'http://music.163.com/song/media/outer/url?id=1846519326.mp3',
-            cover: 'http://p2.music.126.net/39Wb7Nm5AZMi4RtKWIK7Mg==/109951165995189664.jpg'
-      },
-      {
-        name: 'Viva La Vida (feat. Daniele Vitale SAX)',
-            artist: 'Karolina Protsenko / Daniele Vitale Sax',
-			//  http://music.163.com/song/media/outer/url?id=  .mp3
-            url: 'http://music.163.com/song/media/outer/url?id=1902474653.mp3',
-            cover: 'http://p1.music.126.net/Lt6Z9POY1UFTycB4xcq-wQ==/109951166715668368.jpg'
+            url: 'https://m702.music.126.net/20250226113456/020acc6e9b1bad6ba4f35e34eddab9b5/jd-musicrep-ts/56bb/d95a/526a/26adf42f360d4c940db23ebf3af7a935.mp3?vuutv=MncY8flVGAlVkHrV6ToVGU7VLpS0fTV/BidHpw7hesC9nvpIlwMyDTy1l2uTdxCC2Tr0W6rs6HyW6v3FmSRcKZoDby5cxgAZaeb7pQLyDHfO4WmjNU+QzyW3kexOVFMRIq7gvaMB7q7M3dsFzfMo442jTfGk6EVJ0x2Lqntwk//YkJ9QvMq+6m9gQQWnq7z+yf9Lvj73CdrRgXzIKRV9xlwfqTw3VF0kinlXaoowqJpDUSjsFWQXQiuS5imDV3sLiF4eqHBgFdK3MWL3cO5Xedi0jWQJPJPQg5XMsqMuGc8HzMH4GMYrBPniH6jZsLy2WWSMXie7rBenLxg8hf6wFCwg6x8GJ6d4KquAeU57LBb5mJVIVSLekboUtVoz2wva',
+            cover: 'http://p2.music.126.net/sCnY1zIvgMxz4rMSTYxc8A==/109951166126584886.jpg'
       }
- 
-    
     ]
 });
