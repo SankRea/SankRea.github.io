@@ -468,7 +468,7 @@ font:
   # Font settings for headlines (<h1> to <h6>).
   headings:
     external: true
-    family: JetBrains Mono
+    family: Noto Serif SC
     size:
 
   # Font settings for posts (.post-body).
@@ -597,7 +597,7 @@ math:
 
 # Easily enable fast Ajax navigation on your website.
 # For more information: https://github.com/next-theme/pjax
-pjax: false
+pjax: true
 
 # FancyBox is a tool that offers a nice and elegant way to add zooming functionality for images.
 # For more information: https://fancyapps.com/fancybox/
