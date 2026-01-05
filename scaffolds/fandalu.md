@@ -1,6 +1,6 @@
 ---
 title: {{ title }}
 date: {{ date }}
-tags:
-categories:
+categories: 泛大陆
+tags: 
 ---
