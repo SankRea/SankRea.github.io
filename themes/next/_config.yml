@@ -193,7 +193,7 @@ links_settings:
   layout: block
 
 links:
-  #Title: https://example.com
+  coc7thcard: https://drrrrrrrrrr.space/coc7thcard/
 
 # Table of Contents in the Sidebar
 # Front-matter variable (nonsupport wrap expand_all).
@@ -426,8 +426,8 @@ bookmark:
 
 # `Follow me on GitHub` banner in the top-right corner.
 github_banner:
-  enable: false
-  permalink: https://github.com/yourname
+  enable: true
+  permalink: https://github.com/SankRea
 
 
 # ---------------------------------------------------------------
@@ -606,7 +606,7 @@ fancybox: false
 # Medium Zoom is a JavaScript library for zooming images like Medium.
 # Warning: Do not enable both `fancybox` and `mediumzoom`.
 # For more information: https://medium-zoom.francoischalifour.com
-mediumzoom: false
+mediumzoom: true
 
 # Vanilla JavaScript plugin for lazyloading images.
 # For more information: https://apoorv.pro/lozad.js/demo/
