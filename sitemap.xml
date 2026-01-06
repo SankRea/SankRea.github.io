@@ -2,6 +2,15 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://sankrea.github.io/posts/155056b7/</loc>
+    
+    <lastmod>2026-01-05</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>http://sankrea.github.io/posts/4a17b156/</loc>
     
     <lastmod>2026-01-04</lastmod>
@@ -200,6 +209,13 @@
   
   <url>
     <loc>http://sankrea.github.io/categories/%E8%90%8C%E8%8A%BD%E6%8A%95%E7%A8%BF%E5%90%88%E9%9B%86/</loc>
+    <lastmod>2026-01-05</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>http://sankrea.github.io/categories/%E6%B3%9B%E5%A4%A7%E9%99%86/</loc>
     <lastmod>2026-01-05</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
