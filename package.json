@@ -2,6 +2,11 @@
   "name": "hexo-site",
   "version": "0.0.0",
   "private": true,
+  "engines": {
+    "node": ">=24.18.0 <25",
+    "npm": ">=12.0.1 <13"
+  },
+  "packageManager": "npm@12.0.1",
   "scripts": {
     "build": "hexo generate",
     "clean": "hexo clean",
@@ -9,17 +14,15 @@
     "server": "hexo server"
   },
   "hexo": {
-    "version": "8.1.1"
+    "version": "8.1.2"
   },
   "dependencies": {
-    "canvas-nest.js": "^2.0.4",
-    "hexo": "^8.0.0",
+    "hexo": "^8.1.2",
     "hexo-abbrlink": "^2.2.1",
     "hexo-deployer-git": "^4.0.0",
     "hexo-generator-archive": "^2.0.0",
-    "hexo-generator-baidu-sitemap": "^0.1.9",
     "hexo-generator-category": "^2.0.0",
-    "hexo-generator-index-pin-top": "^0.2.2",
+    "hexo-generator-index": "^4.0.0",
     "hexo-generator-searchdb": "^1.5.0",
     "hexo-generator-sitemap": "^3.0.1",
     "hexo-generator-tag": "^2.0.0",
@@ -27,8 +30,12 @@
     "hexo-renderer-marked": "^7.0.0",
     "hexo-renderer-stylus": "^3.0.1",
     "hexo-server": "^3.0.0",
-    "hexo-tag-aplayer": "^3.0.4",
-    "hexo-theme-landscape": "^1.0.0",
     "hexo-word-counter": "^0.2.1"
+  },
+  "allowScripts": {
+    "hexo-util@2.7.0": true,
+    "hexo-util@3.3.0": true,
+    "hexo-util@4.0.0": true,
+    "hexo-word-counter@0.2.1": true
   }
 }

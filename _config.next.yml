@@ -1,0 +1,99 @@
+# 黑蜥蜴星球的 NexT 配置；主题默认值由 themes/next/_config.yml 提供。
+# 升级主题时保留此文件，以及 source/_data 中的自定义模板和样式。
+
+custom_file_path:
+  head: source/_data/head.njk
+  header: source/_data/header.njk
+  sidebar: source/_data/sidebar.njk
+  bodyEnd: source/_data/body-end.njk
+  style: source/_data/styles.styl
+recent_posts:
+  title: 最近文章
+  icon: fa fa-history
+  max_count: 5
+favicon:
+  small: /images/favicon.ico
+  medium: /images/favicon.ico
+  apple_touch_icon: /images/apple-touch-icon-next.png
+  safari_pinned_tab: /images/logo.svg
+menu:
+  home: / || fa fa-home
+  tags: /tags/ || fa fa-tags
+  categories: /categories/ || fa fa-th
+  archives: /archives/ || fa fa-archive
+sidebar:
+  position: right
+  width_expanded: 320
+  width_dual_column: 240
+  display: post
+  padding: 18
+  offset: 12
+avatar:
+  url: /images/-1db306621debdc23.jpg
+  rounded: false
+  rotated: false
+social:
+  GitHub: https://github.com/SankRea || github
+links:
+  coc7thcard: https://drrrrrrrrrr.space/coc7thcard/
+footer:
+  since: 2022
+  icon:
+    name: fa fa-heart
+    animated: false
+    color: '#ff0000'
+  copyright: null
+  powered: false
+  beian:
+    enable: false
+    icp: null
+    gongan_id: null
+    gongan_num: null
+    gongan_icon_url: null
+post_meta:
+  item_text: true
+  created_at: true
+  updated_at:
+    enable: false
+    another_day: true
+  categories: true
+github_banner:
+  enable: true
+  permalink: https://github.com/SankRea
+font:
+  enable: true
+  host: https://fonts.loli.net
+  global:
+    external: true
+    family: Noto Serif SC
+    size: null
+  title:
+    external: true
+    family: null
+    size: null
+  headings:
+    external: true
+    family: Noto Serif SC
+    size: null
+  posts:
+    external: true
+    family: null
+  codes:
+    external: true
+    family: Fira Code
+pjax: true
+mediumzoom: true
+baidu_analytics: 751c53b7253f6ac69690857a666077c7
+busuanzi_count:
+  enable: true
+  total_visitors: true
+  total_visitors_icon: fa fa-user
+  total_views: true
+  total_views_icon: fa fa-eye
+  post_views: true
+  post_views_icon: far fa-eye
+local_search:
+  enable: true
+  top_n_per_article: 1
+  unescape: false
+  preload: true
