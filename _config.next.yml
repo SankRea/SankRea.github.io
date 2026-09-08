@@ -18,6 +18,7 @@ favicon:
   safari_pinned_tab: /images/logo.svg
 menu:
   home: / || fa fa-home
+  藏书室: /novels/ || fa fa-book-open
   tags: /tags/ || fa fa-tags
   categories: /categories/ || fa fa-th
   archives: /archives/ || fa fa-archive

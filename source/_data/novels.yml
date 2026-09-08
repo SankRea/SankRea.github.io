@@ -1,0 +1,21 @@
+# 每本作品使用独立且稳定的 id；分卷顺序由 volumes 的排列决定。
+# 章节通过 front-matter 中的 novel.book、novel.volume、novel.order 关联。
+books:
+  - id: pan-continent
+    title: 泛大陆
+    subtitle: 盗贼与树人
+    status: 收录中
+    palette: forest
+    description: 拉泽尔决心成为一位盗贼。故事从柏洛城的一场拍卖会开始。
+    volumes:
+      - id: 1
+        title: 第一卷 · 盗贼与树人
+  - id: aquarium-princess
+    title: 水族馆的人鱼公主
+    subtitle: 醉后不知天在水
+    status: 收录中
+    palette: ocean
+    description: 那些相遇、礼物与未说出口的心事，留在这一卷故事里。
+    volumes:
+      - id: 1
+        title: 第一卷 · 醉后不知天在水

@@ -1,0 +1,35 @@
+{% extends '_layout.njk' %}
+{% import '_macro/novels.njk' as novels with context %}
+{% import '_macro/sidebar.njk' as sidebar_template with context %}
+{% block title %}{{ page.book.title | escape }} · 目录 | {{ title }}{% endblock %}
+{% block class %}page novel-page{% endblock %}
+{% block sidebar %}{{ sidebar_template.render(false) }}{% endblock %}
+{% block content %}
+  {% set book = page.book %}
+  {{ novels.state() }}
+  <section class="novel-book-page" data-novel-book="{{ book.id | escape }}">
+    <a class="novel-back" href="{{ url_for('novels/') | escape }}">← 返回藏书室</a>
+    <header class="novel-book-intro">
+      {{ novels.cover(book, '藏') }}
+      <div>
+        <p class="novel-eyebrow">{{ book.author | escape }} / 著</p>
+        <h1>{{ book.title | escape }}</h1>
+        {% if book.subtitle %}<p class="novel-subtitle">{{ book.subtitle | escape }}</p>{% endif %}
+        <p class="novel-book-meta"><span class="novel-status">{{ book.status | escape }}</span> 已收录 {{ book.count }} 章</p>
+        <p class="novel-description">{{ book.description | escape }}</p>
+        {% if book.note %}<p class="novel-note">{{ book.note | escape }}</p>{% endif %}
+        {% if book.first %}
+          <div class="novel-actions">
+            <a class="novel-button" href="{{ url_for(book.first.path) | escape }}" data-novel-resume>开始阅读 <span aria-hidden="true">→</span></a>
+            <a class="novel-text-link" href="#novel-contents">章节目录</a>
+          </div>
+          <p class="novel-reading-note" data-novel-progress hidden></p>
+        {% endif %}
+      </div>
+    </header>
+    <section class="novel-contents" id="novel-contents" aria-labelledby="novel-contents-title">
+      <div class="novel-section-heading"><h2 id="novel-contents-title">章节目录</h2><span>按故事顺序阅读</span></div>
+      {{ novels.contents(book) }}
+    </section>
+  </section>
+{% endblock %}

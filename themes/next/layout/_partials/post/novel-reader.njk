@@ -1,0 +1,49 @@
+{% import '_macro/novels.njk' as novels with context %}
+{{ novels.state() }}
+<section class="novel-reader" data-novel-reader data-book-id="{{ reading.book.id | escape }}" data-chapter-path="{{ reading.chapter.path | escape }}">
+  <div class="novel-reader-topline">
+    <a href="{{ url_for('novels/') | escape }}">← 藏书室</a>
+    <a href="{{ url_for(reading.book.path) | escape }}">{{ reading.book.title | escape }}</a>
+    <span>{{ reading.index }} / {{ reading.book.count }} 章</span>
+  </div>
+  <div class="novel-reader-toolbar">
+    <details class="novel-reader-toc">
+      <summary>章节目录 <span aria-hidden="true">⌄</span></summary>
+      <nav aria-label="本书章节">{{ novels.contents(reading.book, reading.chapter.path) }}</nav>
+    </details>
+    <div class="novel-reader-controls" data-reader-controls hidden>
+      <div class="novel-font-controls" role="group" aria-label="正文字号">
+        <button type="button" data-font-change="-1" aria-label="减小字号">A−</button>
+        <output data-font-size aria-live="polite">20</output>
+        <button type="button" data-font-change="1" aria-label="增大字号">A＋</button>
+      </div>
+      <div class="novel-theme-controls" role="group" aria-label="阅读配色">
+        <button type="button" data-reader-theme="paper" aria-label="纸张配色" aria-pressed="true" title="纸张"></button>
+        <button type="button" data-reader-theme="light" aria-label="明亮配色" aria-pressed="false" title="明亮"></button>
+        <button type="button" data-reader-theme="night" aria-label="夜间配色" aria-pressed="false" title="夜间"></button>
+      </div>
+      <button type="button" class="novel-focus-button" data-reader-focus aria-pressed="false">专注阅读</button>
+    </div>
+  </div>
+  <div class="novel-reader-progress" data-reader-progress role="progressbar" aria-label="本章阅读进度" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><span></span></div>
+  <div class="novel-resume-notice" data-reader-resume-notice hidden>
+    <span data-reader-resume-label></span><button type="button" data-reader-restore>回到上次位置</button>
+  </div>
+  <article class="novel-article" itemscope itemtype="https://schema.org/Article">
+    <header class="novel-chapter-heading">
+      <p class="novel-eyebrow">{{ reading.chapter.volumeTitle | escape }}</p>
+      <h1 itemprop="headline">{{ reading.chapter.title | escape }}</h1>
+      <p>{{ reading.book.author | escape }} <span aria-hidden="true">·</span> {{ reading.book.title | escape }}</p>
+    </header>
+    <div class="post-body novel-prose" itemprop="articleBody" data-reader-prose>{{ page.content }}</div>
+    <div class="novel-chapter-end" aria-hidden="true">✦</div>
+    <nav class="novel-chapter-nav" aria-label="章节导航">
+      {% if reading.previous %}<a href="{{ url_for(reading.previous.path) | escape }}" rel="prev"><small>← 上一章</small><span>{{ reading.previous.title | escape }}</span></a>
+      {% else %}<span class="novel-nav-disabled"><small>故事的起点</small><span>这是本站收录的首章</span></span>{% endif %}
+      <a class="novel-nav-directory" href="{{ url_for(reading.book.path) | escape }}">目录</a>
+      {% if reading.next %}<a href="{{ url_for(reading.next.path) | escape }}" rel="next"><small>下一章 →</small><span>{{ reading.next.title | escape }}</span></a>
+      {% else %}<span class="novel-nav-disabled"><small>暂时读到这里</small><span>已到本站收录的末章</span></span>{% endif %}
+    </nav>
+    <p class="novel-storage-note" data-reader-storage-note hidden>阅读位置自动保存在当前浏览器。</p>
+  </article>
+</section>

@@ -1,0 +1,43 @@
+{% extends '_layout.njk' %}
+{% import '_macro/novels.njk' as novels with context %}
+{% import '_macro/sidebar.njk' as sidebar_template with context %}
+{% block title %}藏书室 | {{ title }}{% endblock %}
+{% block class %}page novel-page{% endblock %}
+{% block sidebar %}{{ sidebar_template.render(false) }}{% endblock %}
+{% block content %}
+  {{ novels.state() }}
+  <section class="novel-library" aria-labelledby="novel-library-title">
+    <header class="novel-library-heading">
+      <p class="novel-eyebrow">黑蜥蜴星球 · 藏书室</p>
+      <h1 id="novel-library-title">故事在这里，<br>慢慢展开。</h1>
+      <div class="novel-heading-bottom">
+        <p>选一本书，把时间留给下一章。</p>
+        <span>{{ page.books.length }} 部作品 <span aria-hidden="true">/</span> {{ page.chapterCount }} 个已收录章节</span>
+      </div>
+    </header>
+    <div class="novel-bookshelf">
+      {% for book in page.books %}
+        <article class="novel-book-card" data-novel-book="{{ book.id | escape }}">
+          <a class="novel-cover-link" href="{{ url_for(book.path) | escape }}" aria-label="查看《{{ book.title | escape }}》目录">
+            {{ novels.cover(book, '0' + loop.index if loop.index < 10 else loop.index) }}
+          </a>
+          <div class="novel-book-copy">
+            <p class="novel-book-meta"><span class="novel-status">{{ book.status | escape }}</span> {{ book.count }} 章</p>
+            <h2><a href="{{ url_for(book.path) | escape }}">{{ book.title | escape }}</a></h2>
+            {% if book.subtitle %}<p class="novel-subtitle">{{ book.subtitle | escape }}</p>{% endif %}
+            <p class="novel-description">{{ book.description | escape }}</p>
+            {% if book.note %}<p class="novel-note">{{ book.note | escape }}</p>{% endif %}
+            <div class="novel-actions">
+              <a class="novel-button" href="{{ url_for(book.path) | escape }}">查看目录 <span aria-hidden="true">→</span></a>
+              {% if book.first %}<a class="novel-text-link" href="{{ url_for(book.first.path) | escape }}" data-novel-resume>开始阅读</a>{% endif %}
+            </div>
+            <p class="novel-reading-note" data-novel-progress hidden></p>
+          </div>
+        </article>
+      {% else %}
+        <p class="novel-empty">藏书室还在整理，故事即将到来。</p>
+      {% endfor %}
+    </div>
+    <footer class="novel-library-footer"><span>每一个故事，都有自己的远方。</span><span>阅读位置仅保存在当前浏览器</span></footer>
+  </section>
+{% endblock %}

@@ -48,6 +48,58 @@ Windows PowerShell 中使用 `npm.cmd` 可以避免 `npm.ps1` 执行策略限制
 
 播放器使用 `<meting-js>`，不依赖 `hexo-tag-aplayer`。站点地图由 `hexo-generator-sitemap` 生成。
 
+## 藏书室与小说阅读
+
+重启 `hexo s` 后，从导航的“藏书室”或 `/novels/` 进入。无需安装新依赖。
+已接入《泛大陆》和《水族馆的人鱼公主》，每部作品有独立书页、分卷目录、章节导航与浏览器阅读记录。
+阅读页提供字号调节、纸张／明亮／夜间配色和专注模式；设置跨作品共用，进度按作品分别保存，不跨设备同步。
+点击“继续阅读”恢复位置，直接打开章节时可以点击“回到上次位置”。禁用 JavaScript 时仍可查看目录和正文。
+
+2026-09-08 从纯纯写作 TXT 导入两部作品的章节正文：《泛大陆》第一卷第 1–12 章、
+《水族馆的人鱼公主》第一卷“醉后不知天在水”第 1–32 章，共 44 章，不含创作大纲。
+此次新增 37 章，更新 1 章正文，其余 6 个已有章节正文保持原样；原有 7 个章节的 `abbrlink` 全部保留。
+新增章节使用导入时间作为文章日期，已有章节保留原来的日期字段；阅读目录始终按卷和章号排序。
+
+添加新作品时，在 `source/_data/novels.yml` 的 `books` 列表中增加：
+
+```yaml
+  - id: my-new-book
+    title: 新作品名称
+    author: 作者名
+    description: 一句话简介
+    status: 连载中
+    palette: wine
+    volumes:
+      - id: 1
+        title: 第一卷
+```
+
+`id` 使用英文小写字母、数字与连字符，保持稳定，以免改变书页地址和阅读记录。
+`palette` 可选 `forest`、`ocean`、`wine`、`sand`；也可填写 `cover: /images/封面.jpg` 使用自己的封面。
+`subtitle`、`note` 可选，用来写副标题和收录说明；`author` 未填写时使用站点作者。
+
+随后在该书每个 Markdown 章节的顶部 `---` 区域内增加：
+
+```yaml
+novel:
+  book: my-new-book
+  volume: 1
+  order: 1
+  title: 第一章 初遇
+```
+
+`book` 对应作品 `id`，`volume` 对应卷 `id`。卷按配置顺序排列，章按卷内 `order` 数字排列，不能重复。
+不分卷时，省略作品的 `volumes` 和章节的 `volume` 即可。章节显示名优先使用 `novel.title`，原有 `title`、`abbrlink` 和网址可以保留。
+不连续收录时填写原章号，并在作品 `note` 中说明；章节导航只连接同一作品中已收录的章节。
+这次按公开收录的确认移除了《水族馆的人鱼公主》现有章节的旧 `password` 标记。
+
+作品配置或章节的 `novel` 下设置 `hidden: true` 可以移出藏书室，带 `password` 的章节也不收录。
+这些过滤只影响藏书室与阅读模式，不会加密正文或隐藏原来的博客页面；当前项目未安装文章加密插件。
+
+实现文件：`scripts/novels.js` 负责组织作品；`source/css/novels.css`、`source/js/novels.js` 负责阅读界面与浏览器记录。
+更新 NexT 时，保留 `layout/novel-library.njk`、`layout/novel-book.njk`、`layout/_macro/novels.njk`、
+`layout/_partials/post/novel-reader.njk` 以及 `layout/post.njk` 中的小说分支，同时保留 `source/_data` 中的样式和脚本入口。
+
 ## 手动生成与发布
 
 本地预览不需要先生成静态文件。需要发布时，再手动执行：
