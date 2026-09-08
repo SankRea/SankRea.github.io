@@ -1,16 +1,15 @@
 {% extends '_layout.njk' %}
-{% import '_macro/novels.njk' as novels with context %}
 {% import '_macro/sidebar.njk' as sidebar_template with context %}
 {% block title %}{{ page.book.title | escape }} · 目录 | {{ title }}{% endblock %}
 {% block class %}page novel-page{% endblock %}
 {% block sidebar %}{{ sidebar_template.render(false) }}{% endblock %}
 {% block content %}
   {% set book = page.book %}
-  {{ novels.state() }}
+  {{ partial('novel-catalogue.njk') }}
   <section class="novel-book-page" data-novel-book="{{ book.id | escape }}">
     <a class="novel-back" href="{{ url_for('novels/') | escape }}">← 返回藏书室</a>
     <header class="novel-book-intro">
-      {{ novels.cover(book, '藏') }}
+      {{ partial('novel-cover.njk', {book: book, number: '藏'}) }}
       <div>
         <p class="novel-eyebrow">{{ book.author | escape }} / 著</p>
         <h1>{{ book.title | escape }}</h1>
@@ -29,7 +28,7 @@
     </header>
     <section class="novel-contents" id="novel-contents" aria-labelledby="novel-contents-title">
       <div class="novel-section-heading"><h2 id="novel-contents-title">章节目录</h2><span>按故事顺序阅读</span></div>
-      {{ novels.contents(book) }}
+      {{ partial('novel-contents.njk', {book: book}) }}
     </section>
   </section>
 {% endblock %}

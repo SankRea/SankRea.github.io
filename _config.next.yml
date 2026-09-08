@@ -1,12 +1,13 @@
 # 黑蜥蜴星球的 NexT 配置；主题默认值由 themes/next/_config.yml 提供。
-# 升级主题时保留此文件，以及 source/_data 中的自定义模板和样式。
+# 升级主题时保留此文件、custom/、scripts/ 与 source/ 中的站点功能和资源。
 
 custom_file_path:
   head: source/_data/head.njk
   header: source/_data/header.njk
   sidebar: source/_data/sidebar.njk
   bodyEnd: source/_data/body-end.njk
-  style: source/_data/styles.styl
+# 首页只展示此 abbrlink 对应的欢迎文章；删除此项可恢复文章列表。
+home_welcome_post: '4a17b156'
 recent_posts:
   title: 最近文章
   icon: fa fa-history

@@ -1,0 +1,23 @@
+{% extends '_layout.njk' %}
+{% import '_macro/sidebar.njk' as sidebar_template with context %}
+
+{% block title %}{{ page.title }} | {{ title }}{% endblock %}
+
+{% block class %}post posts-expand{% endblock %}
+
+{% block content %}
+
+  {% set reading = novel_chapter(page) %}
+  {% if reading %}
+    {{ partial('novel-reader.njk', {reading: reading}) }}
+  {% elif theme.home_welcome_post and page.abbrlink === theme.home_welcome_post %}
+    {{ partial('welcome.njk', {post: page, is_index: false}) }}
+  {% else %}
+    {{ partial('_macro/post.njk', {post: page}) }}
+  {% endif %}
+
+{% endblock %}
+
+{% block sidebar %}
+  {{ sidebar_template.render(page.toc.enable and not novel_chapter(page)) }}
+{% endblock %}

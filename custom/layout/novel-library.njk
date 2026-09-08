@@ -1,11 +1,10 @@
 {% extends '_layout.njk' %}
-{% import '_macro/novels.njk' as novels with context %}
 {% import '_macro/sidebar.njk' as sidebar_template with context %}
 {% block title %}藏书室 | {{ title }}{% endblock %}
 {% block class %}page novel-page{% endblock %}
 {% block sidebar %}{{ sidebar_template.render(false) }}{% endblock %}
 {% block content %}
-  {{ novels.state() }}
+  {{ partial('novel-catalogue.njk') }}
   <section class="novel-library" aria-labelledby="novel-library-title">
     <header class="novel-library-heading">
       <p class="novel-eyebrow">黑蜥蜴星球 · 藏书室</p>
@@ -19,7 +18,7 @@
       {% for book in page.books %}
         <article class="novel-book-card" data-novel-book="{{ book.id | escape }}">
           <a class="novel-cover-link" href="{{ url_for(book.path) | escape }}" aria-label="查看《{{ book.title | escape }}》目录">
-            {{ novels.cover(book, '0' + loop.index if loop.index < 10 else loop.index) }}
+            {{ partial('novel-cover.njk', {book: book, number: '0' + loop.index if loop.index < 10 else loop.index}) }}
           </a>
           <div class="novel-book-copy">
             <p class="novel-book-meta"><span class="novel-status">{{ book.status | escape }}</span> {{ book.count }} 章</p>

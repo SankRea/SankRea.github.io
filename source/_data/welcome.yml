@@ -1,0 +1,15 @@
+# 浏览器优先语言未匹配时使用英文；只影响欢迎文章（首页和详情），不翻译其他文章。
+fallback: en
+messages:
+  zh-Hans:
+    title: 欢迎来到黑蜥蜴星球
+    paragraphs:
+      - 欢迎来到黑蜥蜴星球，这里是准备殖民地球的黑蜥蜴人的聚集地。欢迎加入我们，来自故乡的朋友。
+  zh-Hant:
+    title: 歡迎來到黑蜥蜴星球
+    paragraphs:
+      - 歡迎來到黑蜥蜴星球，這裡是準備殖民地球的黑蜥蜴人的聚集地。歡迎加入我們，來自故鄉的朋友。
+  en:
+    title: Welcome to Black Lizard Planet
+    paragraphs:
+      - Welcome to black lizard planet, which is the gathering place for black lizard people who are preparing to colonize the earth. Welcome to join us, friends of hometown.

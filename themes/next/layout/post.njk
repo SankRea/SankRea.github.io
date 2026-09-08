@@ -7,15 +7,10 @@
 
 {% block content %}
 
-  {% set reading = novel_chapter(page) %}
-  {% if reading %}
-    {% include '_partials/post/novel-reader.njk' %}
-  {% else %}
-    {{ partial('_macro/post.njk', {post: page}) }}
-  {% endif %}
+  {{ partial('_macro/post.njk', {post: page}) }}
 
 {% endblock %}
 
 {% block sidebar %}
-  {{ sidebar_template.render(page.toc.enable and not novel_chapter(page)) }}
+  {{ sidebar_template.render(page.toc.enable) }}
 {% endblock %}

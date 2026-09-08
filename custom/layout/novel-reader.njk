@@ -1,5 +1,4 @@
-{% import '_macro/novels.njk' as novels with context %}
-{{ novels.state() }}
+{{ partial('novel-catalogue.njk') }}
 <section class="novel-reader" data-novel-reader data-book-id="{{ reading.book.id | escape }}" data-chapter-path="{{ reading.chapter.path | escape }}">
   <div class="novel-reader-topline">
     <a href="{{ url_for('novels/') | escape }}">← 藏书室</a>
@@ -9,7 +8,7 @@
   <div class="novel-reader-toolbar">
     <details class="novel-reader-toc">
       <summary>章节目录 <span aria-hidden="true">⌄</span></summary>
-      <nav aria-label="本书章节">{{ novels.contents(reading.book, reading.chapter.path) }}</nav>
+      <nav aria-label="本书章节">{{ partial('novel-contents.njk', {book: reading.book, activePath: reading.chapter.path}) }}</nav>
     </details>
     <div class="novel-reader-controls" data-reader-controls hidden>
       <div class="novel-font-controls" role="group" aria-label="正文字号">

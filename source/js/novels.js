@@ -72,8 +72,16 @@
   function metrics(reader) {
     const rect = reader.prose.getBoundingClientRect();
     const top = rect.top + window.scrollY;
-    const range = Math.max(1, rect.height - window.innerHeight * .55);
-    return { top, range, ratio: clamp((window.scrollY - top + 110) / range, 0, 1) };
+    const toolbar = reader.root.querySelector('.novel-reader-toolbar');
+    const offset = Math.ceil(toolbar.getBoundingClientRect().height + (parseFloat(getComputedStyle(toolbar).top) || 0) + 16);
+    const toolbarHeight = `${offset}px`;
+    if (reader.root.style.getPropertyValue('--reader-toolbar-height') !== toolbarHeight) {
+      reader.root.style.setProperty('--reader-toolbar-height', toolbarHeight);
+    }
+    const bottomSpace = parseFloat(getComputedStyle(document.body).paddingBottom) || 0;
+    const viewport = Math.max(1, window.innerHeight - offset - bottomSpace);
+    const range = Math.max(1, rect.height - viewport * .55);
+    return { top, offset, range, ratio: clamp((window.scrollY - top + offset) / range, 0, 1) };
   }
 
   function displayProgress() {
@@ -118,8 +126,8 @@
     reader.suspended = true;
     requestAnimationFrame(() => requestAnimationFrame(() => {
       if (active !== reader) return;
-      const { top, range } = metrics(reader);
-      window.scrollTo({ top: Math.max(0, top - 110 + range * ratio), behavior: 'instant' });
+      const { top, offset, range } = metrics(reader);
+      window.scrollTo({ top: Math.max(0, top - offset + range * ratio), behavior: 'instant' });
       reader.suspended = false;
       displayProgress();
       if (afterMove) afterMove();
@@ -205,7 +213,7 @@
     if (button.hasAttribute('data-reader-restore')) { restorePosition(); return; }
     const reader = active;
     const before = metrics(reader);
-    const wasInsideProse = window.scrollY >= before.top - 110;
+    const wasInsideProse = window.scrollY >= before.top - before.offset;
     if (button.hasAttribute('data-font-change')) {
       settings.fontSize = clamp(settings.fontSize + Number(button.dataset.fontChange), 16, 28);
     } else if (button.hasAttribute('data-reader-theme')) {
@@ -224,6 +232,7 @@
     document.querySelectorAll('.novel-reader-toc[open]').forEach(toc => { toc.open = false; });
   }, true);
   window.addEventListener('pagehide', saveProgress);
+  window.addEventListener('resize', displayProgress, { passive: true });
   document.addEventListener('visibilitychange', () => { if (document.hidden) saveProgress(); });
   document.addEventListener('pjax:send', () => { saveProgress(); active = null; });
   document.addEventListener('pjax:success', initialize);
