@@ -72,52 +72,7 @@
 
 
 <link rel="stylesheet" href="/css/novels.css">
-<style>
-  .post-block {
-    margin-top: 60px;
-    margin-bottom: 60px;
-    padding: 25px;
-    box-shadow: 0 0 5px rgba(202, 203, 203, .5);
-    -webkit-box-shadow: 0 0 5px rgba(202, 203, 203, .5);
-    -moz-box-shadow: 0 0 5px rgba(202, 203, 203, .5);
-  }
-</style>
-
-<style>
-  /* --- 全局字体大小控制 --- */
-  body {
-    font-size: 16px !important; 
-  }
-
-  .post-title {
-    font-size: 21px !important;
-  }
-  
-  code, pre {
-    font-size: 14px !important;
-  }
-</style>
-
-<style>
-  /* 🛠️ 滚动条整体 */
-  ::-webkit-scrollbar {
-    width: 8px; /* 竖向滚动条宽度 */
-    height: 8px; /* 横向滚动条高度 */
-  }
-  /* 轨道 (背景) */
-  ::-webkit-scrollbar-track {
-    background: #222; /* 和你的暗黑背景一致 */
-  }
-  /* 滑块 (拖动条) */
-  ::-webkit-scrollbar-thumb {
-    background: #555; /* 深灰色 */
-    border-radius: 4px; /* 圆角 */
-  }
-  /* 滑块悬停 */
-  ::-webkit-scrollbar-thumb:hover {
-    background: #888; /* 悬停变亮 */
-  }
-</style>
+<link rel="stylesheet" href="/css/site.css">
 
   <noscript>
     <link rel="stylesheet" href="/css/noscript.css">
@@ -545,7 +500,8 @@ if(canvas.getContext){
 
   
   
-    
+    <div data-welcome-copy="{&quot;fallback&quot;:&quot;en&quot;,&quot;messages&quot;:{&quot;zh-Hans&quot;:{&quot;title&quot;:&quot;欢迎来到黑蜥蜴星球&quot;,&quot;paragraphs&quot;:[&quot;欢迎来到黑蜥蜴星球，这里是准备殖民地球的黑蜥蜴人的聚集地。欢迎加入我们，来自故乡的朋友。&quot;]},&quot;zh-Hant&quot;:{&quot;title&quot;:&quot;歡迎來到黑蜥蜴星球&quot;,&quot;paragraphs&quot;:[&quot;歡迎來到黑蜥蜴星球，這裡是準備殖民地球的黑蜥蜴人的聚集地。歡迎加入我們，來自故鄉的朋友。&quot;]},&quot;en&quot;:{&quot;title&quot;:&quot;Welcome to Black Lizard Planet&quot;,&quot;paragraphs&quot;:[&quot;Welcome to black lizard planet, which is the gathering place for black lizard people who are preparing to colonize the earth. Welcome to join us, friends of hometown.&quot;]}}}">
+  
 
 
 <div class="post-block">
@@ -647,6 +603,8 @@ if(canvas.getContext){
 
 
 
+</div>
+
   
 
 
@@ -718,6 +676,7 @@ if(canvas.getContext){
   <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
 </noscript>
 <script src="/js/novels.js" defer></script>
+<script src="/js/site.js" defer></script>
 <script src="/js/love.js"></script>
 
 <script src="/js/crash_cheat.js"></script>
@@ -736,13 +695,6 @@ if(canvas.getContext){
 
 <script src="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/meting@2.0.2/dist/Meting.min.js"></script>
-
-<style>
-  canvas {
-    pointer-events: none !important;
-    z-index: -1 !important;
-  }
-</style>
 
 <meting-js
   server="netease"
