@@ -17,9 +17,6 @@
     <div class="novel-bookshelf">
       {% for book in page.books %}
         <article class="novel-book-card" data-novel-book="{{ book.id | escape }}">
-          <a class="novel-cover-link" href="{{ url_for(book.path) | escape }}" aria-label="查看《{{ book.title | escape }}》目录">
-            {{ partial('novel-cover.njk', {book: book, number: '0' + loop.index if loop.index < 10 else loop.index}) }}
-          </a>
           <div class="novel-book-copy">
             <p class="novel-book-meta"><span class="novel-status">{{ book.status | escape }}</span> {{ book.count }} 章</p>
             <h2><a href="{{ url_for(book.path) | escape }}">{{ book.title | escape }}</a></h2>

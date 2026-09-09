@@ -1,5 +1,5 @@
 {{ partial('novel-catalogue.njk') }}
-<section class="novel-reader" data-novel-reader data-book-id="{{ reading.book.id | escape }}" data-chapter-path="{{ reading.chapter.path | escape }}">
+<section class="novel-reader" data-theme="light" data-novel-reader data-book-id="{{ reading.book.id | escape }}" data-chapter-path="{{ reading.chapter.path | escape }}">
   <div class="novel-reader-topline">
     <a href="{{ url_for('novels/') | escape }}">← 藏书室</a>
     <a href="{{ url_for(reading.book.path) | escape }}">{{ reading.book.title | escape }}</a>
@@ -13,12 +13,12 @@
     <div class="novel-reader-controls" data-reader-controls hidden>
       <div class="novel-font-controls" role="group" aria-label="正文字号">
         <button type="button" data-font-change="-1" aria-label="减小字号">A−</button>
-        <output data-font-size aria-live="polite">20</output>
+        <output data-font-size aria-live="polite">15</output>
         <button type="button" data-font-change="1" aria-label="增大字号">A＋</button>
       </div>
       <div class="novel-theme-controls" role="group" aria-label="阅读配色">
-        <button type="button" data-reader-theme="paper" aria-label="纸张配色" aria-pressed="true" title="纸张"></button>
-        <button type="button" data-reader-theme="light" aria-label="明亮配色" aria-pressed="false" title="明亮"></button>
+        <button type="button" data-reader-theme="paper" aria-label="纸张配色" aria-pressed="false" title="纸张"></button>
+        <button type="button" data-reader-theme="light" aria-label="明亮配色" aria-pressed="true" title="明亮"></button>
         <button type="button" data-reader-theme="night" aria-label="夜间配色" aria-pressed="false" title="夜间"></button>
       </div>
       <button type="button" class="novel-focus-button" data-reader-focus aria-pressed="false">专注阅读</button>

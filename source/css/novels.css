@@ -30,6 +30,7 @@
 
 .novel-library,
 .novel-book-page {
+  --novel-paper: #fff;
   padding: 48px 48px 28px;
   border: 1px solid var(--novel-line);
   border-radius: 4px;
@@ -59,7 +60,7 @@
 .novel-heading-bottom > span { font-size: 12px; color: var(--novel-muted); }
 .novel-heading-bottom > span > span { padding: 0 8px; opacity: .5; }
 .novel-bookshelf { margin-top: 32px; }
-.novel-book-card { display: grid; grid-template-columns: 180px minmax(0, 1fr); gap: 38px; padding: 36px 0; border-top: 1px solid var(--novel-line); }
+.novel-book-card { padding: 36px 0; border-top: 1px solid var(--novel-line); }
 .novel-cover-link { display: block; align-self: start; }
 
 .novel-cover {
@@ -127,7 +128,7 @@
 
 /* The reader keeps the existing chapter URL and switches only its presentation. */
 .novel-reader {
-  --reader-font-size: 20px;
+  --reader-font-size: 15px;
   padding: 20px 32px 32px;
   border: 1px solid var(--novel-line);
   border-radius: 4px;
@@ -200,7 +201,6 @@ html.novel-focus .novel-article { max-width: 720px; }
   .main-inner.novel-page { width: calc(100% - 24px); }
   .novel-library,
   .novel-book-page { padding: 28px 22px 22px; }
-  .novel-book-card,
   .novel-book-intro { grid-template-columns: 140px minmax(0, 1fr); gap: 24px; }
   .novel-cover { width: 140px; padding: 21px 16px 20px 24px; }
   .novel-cover-title { font-size: 23px; }
@@ -232,15 +232,10 @@ html.novel-focus .novel-article { max-width: 720px; }
 }
 
 @media (max-width: 480px) {
-  .novel-book-card { grid-template-columns: 100px minmax(0, 1fr); gap: 18px; padding: 28px 0; }
-  .novel-book-card .novel-cover { width: 100px; padding: 15px 12px 15px 18px; }
-  .novel-book-card .novel-cover-title { font-size: 18px; line-height: 1.5; }
-  .novel-book-card .novel-cover-author { font-size: 8px; letter-spacing: 0; }
-  .novel-book-card .novel-cover::after { inset: 8px 8px 8px 14px; }
+  .novel-book-card { padding: 28px 0; }
   .novel-book-copy h2 { font-size: 21px; }
   .novel-book-copy { align-self: start; }
-  .novel-book-card .novel-actions { gap: 12px; margin-left: -118px; padding-top: 12px; }
-  .novel-book-card .novel-reading-note { margin-left: -118px; }
+  .novel-book-card .novel-actions { gap: 12px; padding-top: 12px; }
   .novel-description { font-size: 13px; }
   .novel-subtitle { font-size: 12px; }
   .novel-book-intro { grid-template-columns: 1fr; gap: 28px; }
