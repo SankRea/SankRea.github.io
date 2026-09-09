@@ -27,8 +27,8 @@
 
   const storedSettings = read(settingsKey);
   const settings = {
-    fontSize: Number.isFinite(storedSettings?.fontSize) ? clamp(storedSettings.fontSize, 16, 28) : 20,
-    theme: ['paper', 'light', 'night'].includes(storedSettings?.theme) ? storedSettings.theme : 'paper',
+    fontSize: Number.isFinite(storedSettings?.fontSize) ? clamp(storedSettings.fontSize, 10, 20) : 15,
+    theme: ['paper', 'light', 'night'].includes(storedSettings?.theme) ? storedSettings.theme : 'light',
     focus: storedSettings?.focus === true
   };
 
@@ -112,8 +112,8 @@
     active.root.dataset.theme = settings.theme;
     active.root.style.setProperty('--reader-font-size', `${settings.fontSize}px`);
     active.root.querySelector('[data-font-size]').textContent = settings.fontSize;
-    active.root.querySelector('[data-font-change="-1"]').disabled = settings.fontSize <= 16;
-    active.root.querySelector('[data-font-change="1"]').disabled = settings.fontSize >= 28;
+    active.root.querySelector('[data-font-change="-1"]').disabled = settings.fontSize <= 10;
+    active.root.querySelector('[data-font-change="1"]').disabled = settings.fontSize >= 20;
     active.root.querySelectorAll('[data-reader-theme]').forEach(button => {
       button.setAttribute('aria-pressed', button.dataset.readerTheme === settings.theme);
     });
@@ -215,7 +215,7 @@
     const before = metrics(reader);
     const wasInsideProse = window.scrollY >= before.top - before.offset;
     if (button.hasAttribute('data-font-change')) {
-      settings.fontSize = clamp(settings.fontSize + Number(button.dataset.fontChange), 16, 28);
+      settings.fontSize = clamp(settings.fontSize + Number(button.dataset.fontChange), 10, 20);
     } else if (button.hasAttribute('data-reader-theme')) {
       settings.theme = button.dataset.readerTheme;
     } else if (button.hasAttribute('data-reader-focus')) {
