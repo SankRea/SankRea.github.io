@@ -98,4 +98,5 @@ local_search:
   enable: true
   top_n_per_article: 1
   unescape: false
-  preload: true
+  # 打开搜索时再下载搜索索引，避免欢迎首页加载全部文章数据。
+  preload: false

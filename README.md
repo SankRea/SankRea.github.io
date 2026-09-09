@@ -39,21 +39,38 @@ Windows PowerShell 中使用 `npm.cmd` 可以避免 `npm.ps1` 执行策略限制
 - 个人头像已移到 `source/images`，原有网址不变。以后新增个人图片也放在这里，主题提供的其他图标资源仍在 `themes/next/source/images`。
 - `themes/next` 是纳入版本管理的主题源码。首页、小说页与 URL 兼容修改已从主题文件移出，由 `scripts/site-customizations.js` 在生成前注册项目模板与 helper。
 
-播放器和背景动画通过 `source/_data/body-end.njk` 中的固定版本 CDN 地址加载：
+播放器和背景动画由 `source/js/site-media.js` 在首屏绘制后、浏览器空闲时从固定版本 CDN 地址加载：
 
 | 资源 | 版本 |
 | --- | --- |
 | APlayer | 1.10.1 |
-| MetingJS | 2.0.2 |
 | Canvas Nest | 1.0.1 |
 
-播放器使用 `<meting-js>`，不依赖 `hexo-tag-aplayer`。站点地图由 `hexo-generator-sitemap` 生成。
+播放器仍使用 APlayer，歌单通过 Meting API 获取，由站点脚本直接处理请求、错误和初始化，不再加载 MetingJS。
+站点地图由 `hexo-generator-sitemap` 生成。
+
+## 首页加载与音乐维护
+
+- 搜索索引在打开搜索时下载，`_config.next.yml` 中的 `local_search.preload` 设为 `false`。
+- `custom/helpers/font.js` 复用 NexT 的字体配置，将字体样式表改为非阻塞加载，并保留 `display=swap` 和无 JavaScript 时的回退。页面先显示本机字体，外部字体加载后切换。
+- 点击爱心和 Canvas Nest 在首屏绘制后的空闲时段加载；初次加载时处于手机窄屏、减少动态效果、省流量、慢速网络或小说专注模式时跳过。爱心不再维持空闲动画循环。
+- `wobblewindow.js` 目前没有使用位置，保留源文件但不再全站加载。
+- 音乐脚本和样式也延后加载；省流量或慢速网络下需点击“加载音乐”。音频设为 `preload: none`、关闭自动播放，站内 PJAX 跳转保留播放器。
+
+歌单接口在 `source/_data/body-end.njk` 的 `data-api` 中配置，目前使用
+`https://api.injahow.cn/meting/?server=netease&type=playlist&id=475964653`。
+更换歌单时同步修改接口中的 ID 和“在网易云打开”链接；更换服务时使用支持 HTTPS、CORS 的 Meting 兼容接口。
+
+2026-09-09 只读排查中，原默认接口 `api.i-meto.com` 请求超时，而上述接口返回 HTTP 200、235 首歌曲及允许跨域的响应头。
+新脚本为资源和歌单请求设置 12 秒超时，提示网络异常、返回格式错误或空歌单，并提供重试和网易云歌单链接。
+兼容接口中的 `cover` / `pic` 封面字段。公共 API 的长期可用性与单曲播放权限仍由服务提供方、音乐平台决定；
+此次仅检查接口响应与一首歌曲的响应头，未进行浏览器播放、构建或测试，也未测量性能提升幅度。
 
 ## 手机适配与欢迎页语言
 
 手机上的菜单、阅读按钮提供更大的触控区域；菜单在跳转后自动收起，也支持键盘操作。
 阅读工具栏按窄屏分行，章节目录限制在可视高度内；恢复阅读位置时按实际工具栏高度计算，避免正文被遮住。
-播放器挂载后按实际控制条高度为页面底部留空，并避让系统安全区域；侧栏按钮和返回顶部按钮跟随上移。
+音乐加载提示或播放器挂载后，按实际高度为页面底部留空，并避让系统安全区域；侧栏按钮和返回顶部按钮跟随上移。
 
 欢迎文章的标题与正文按 `navigator.languages` 的优先顺序切换：简体中文、繁体中文、英文，未匹配时回退英文。
 `zh-Hans`、`zh-CN`、`zh-SG` 使用简体；`zh-Hant`、`zh-TW`、`zh-HK`、`zh-MO` 使用繁体。
@@ -67,9 +84,11 @@ Windows PowerShell 中使用 `npm.cmd` 可以避免 `npm.ps1` 执行策略限制
 | --- | --- |
 | `custom/layout/*.njk` | 首页、文章入口、藏书室、阅读页及复用的局部模板 |
 | `custom/helpers/next-url.js` | WHATWG URL API 兼容 helper |
+| `custom/helpers/font.js` | 外部字体样式表的非阻塞加载 |
 | `scripts/site-customizations.js` | 在 NexT 初始化后通过 `theme.setView` 注册模板，并注册 URL helper |
 | `scripts/novels.js` | 小说目录生成和章节关联 |
 | `source/css/site.css`、`source/js/site.js` | 全站外观、手机适配与欢迎页语言切换 |
+| `source/js/site-media.js` | 音乐请求与错误提示、播放器和装饰特效的延后加载 |
 | `source/css/novels.css`、`source/js/novels.js` | 小说阅读界面与进度保存 |
 | `source/_data`、`source/images` | 注入入口、内容配置和个人图片 |
 

@@ -1,32 +1,14 @@
 <script src="/js/novels.js" defer></script>
 <script src="/js/site.js" defer></script>
-<script src="/js/love.js"></script>
+<script src="/js/site-media.js" defer></script>
+<script src="/js/crash_cheat.js" defer></script>
 
-<script src="/js/crash_cheat.js"></script>
-
-<script src="/js/wobblewindow.js"></script>
-
-<script 
-  color="0,0,0" 
-  opacity="0.5" 
-  zIndex="-1" 
-  count="99" 
-  src="https://cdn.jsdelivr.net/npm/canvas-nest.js@1.0.1/dist/canvas-nest.js">
-</script>
-
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.css">
-
-<script src="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/meting@2.0.2/dist/Meting.min.js"></script>
-
-<meting-js
-  server="netease"
-  type="playlist"
-  id="475964653"
-  fixed="true"
-  autoplay="false"
-  order="list"
-  loop="all"
-  theme="#2980b9"
-  list-folded="true">
-</meting-js>
+<section class="site-music" data-site-music aria-label="音乐播放器"
+  data-api="https://api.injahow.cn/meting/?server=netease&amp;type=playlist&amp;id=475964653">
+  <div class="site-music-notice">
+    <span data-music-status role="status">音乐</span>
+    <button type="button" data-music-load>加载音乐</button>
+    <a href="https://music.163.com/#/playlist?id=475964653" target="_blank" rel="noopener noreferrer">在网易云打开</a>
+  </div>
+  <div data-music-player></div>
+</section>

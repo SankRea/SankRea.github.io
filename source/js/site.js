@@ -64,30 +64,31 @@
     syncNavigation();
   }
 
-  // Meting fetches its playlist asynchronously. Observe only its own host until
-  // APlayer mounts, then track the real control-bar height without polling.
+  // Reserve space for the loading/retry notice as well as the eventual player.
   function observePlayer() {
-    const host = document.querySelector('meting-js');
+    const host = document.querySelector('[data-site-music]');
     if (!host) return;
-    let observer;
-    let connected = false;
-    const connect = () => {
-      const bar = host.querySelector('.aplayer-fixed .aplayer-body');
-      if (!bar || connected) return;
-      connected = true;
-      observer?.disconnect();
-      document.documentElement.classList.add('site-player-ready');
-      const measure = () => {
-        const height = Math.ceil(bar.getBoundingClientRect().height);
-        // Preserve the last visible height while focus mode hides the player.
-        if (height > 0) document.documentElement.style.setProperty('--site-player-height', `${height}px`);
-      };
-      measure();
-      if ('ResizeObserver' in window) new ResizeObserver(measure).observe(bar);
-      else window.addEventListener('resize', measure, { passive: true });
+    let bar;
+    const measure = () => {
+      const height = Math.ceil(bar?.getBoundingClientRect().height || 0);
+      // Preserve the last visible height while focus mode hides the player.
+      if (height > 0) document.documentElement.style.setProperty('--site-player-height', `${height}px`);
     };
-    observer = new MutationObserver(connect);
-    observer.observe(host, { childList: true, subtree: true });
+    const resizeObserver = 'ResizeObserver' in window ? new ResizeObserver(measure) : null;
+    const connect = () => {
+      const nextBar = host.querySelector('.aplayer-fixed .aplayer-body')
+        || host.querySelector('.site-music-notice:not([hidden])');
+      if (bar === nextBar) return;
+      if (bar) resizeObserver?.unobserve(bar);
+      bar = nextBar;
+      document.documentElement.classList.toggle('site-player-ready', Boolean(bar));
+      if (bar) resizeObserver?.observe(bar);
+      measure();
+    };
+    new MutationObserver(connect).observe(host, {
+      childList: true, subtree: true, attributes: true, attributeFilter: ['hidden']
+    });
+    if (!resizeObserver) window.addEventListener('resize', measure, { passive: true });
     connect();
   }
 
