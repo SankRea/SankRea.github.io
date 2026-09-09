@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 64 64" role="img" aria-labelledby="title desc">
+  <title id="title">黑蜥蜴星球</title>
+  <desc id="desc">深绿圆角底色上的浅绿星球，一只黑蜥蜴舒展四肢，卷起尾巴，望向星光。</desc>
+  <rect x="0" y="0" width="64" height="64" rx="15" fill="#142E29"/>
+  <circle cx="32" cy="32" r="26" fill="#DDECC4"/>
+  <path id="lizard-body" fill="#142E29" d="M29 43 C22 41 23 32 29 28 L33 24 C33 18 37 13 43 13 C49 12 54 15 54 20 C54 25 49 29 44 29 C41 29 39 28 37 28 L34 34 C36 38 34 42 31 44 C27 47 27 51 32 51 C37 51 40 47 38 44 C44 47 40 55 32 55 C22 55 21 48 25 44 Z"/>
+  <path id="lizard-legs" fill="none" stroke="#142E29" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" d="M33 28 L25 22 L20 25 M20 25 L16 24 M20 25 L18 29 M33 31 L45 33 L48 37 M48 37 L52 36 M48 37 L46 40 M26 36 L17 36 L15 42 M15 42 L11 41 M15 42 L17 45 M31 40 L40 41 L45 46 M45 46 L49 44 M45 46 L46 50"/>
+  <circle cx="46" cy="19" r="2.1" fill="#DDECC4"/>
+  <path fill="#DDECC4" d="M54 5 L55.5 8.5 L59 10 L55.5 11.5 L54 15 L52.5 11.5 L49 10 L52.5 8.5 Z"/>
+</svg>
