@@ -13,10 +13,10 @@ recent_posts:
   icon: fa fa-history
   max_count: 5
 favicon:
-  small: /images/favicon.ico
-  medium: /images/favicon.ico
-  apple_touch_icon: /images/apple-touch-icon-next.png
-  safari_pinned_tab: /images/logo.svg
+  small: /images/black-lizard/icon-16.png
+  medium: /images/black-lizard/icon-32.png
+  apple_touch_icon: /images/black-lizard/icon-180.png
+  safari_pinned_tab: /images/black-lizard/safari-pinned-tab.svg
 menu:
   home: / || fa fa-home
   藏书室: /novels/ || fa fa-book-open

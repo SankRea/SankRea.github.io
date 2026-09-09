@@ -37,6 +37,8 @@ Windows PowerShell 中使用 `npm.cmd` 可以避免 `npm.ps1` 执行策略限制
 - 个人主题配置在 `_config.next.yml`；`themes/next/_config.yml` 保留上游默认值。
 - 自定义页面模板在 `custom/layout`，注入入口和内容数据在 `source/_data`，样式统一放在 `source/css`，浏览器脚本放在 `source/js`。
 - 个人头像已移到 `source/images`，原有网址不变。以后新增个人图片也放在这里，主题提供的其他图标资源仍在 `themes/next/source/images`。
+- 站点图标使用 `source/images/black-lizard/` 中的黑蜥蜴星球设计：SVG 原稿、16/32/48 像素 PNG、三尺寸 ICO、180 像素 Apple Touch 图标和 Safari 单色图标；另提供 192/512 像素 PNG 供后续复用。入口在 `_config.next.yml` 和 `source/_data/head.njk`，不覆盖主题资源。
+- 修改 `source/images/black-lizard/icon.svg` 后，可在 Windows PowerShell 中运行 `powershell.exe -NoProfile -ExecutionPolicy Bypass -File ./tools/export-site-icons.ps1` 导出配套图标；此命令只生成图片资源，不运行 Hexo 构建。
 - `themes/next` 是纳入版本管理的主题源码。首页、小说页与 URL 兼容修改已从主题文件移出，由 `scripts/site-customizations.js` 在生成前注册项目模板与 helper。
 
 播放器和背景动画由 `source/js/site-media.js` 在首屏绘制后、浏览器空闲时从固定版本 CDN 地址加载：
