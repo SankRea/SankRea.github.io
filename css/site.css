@@ -22,6 +22,39 @@ canvas { pointer-events: none !important; z-index: -1 !important; }
   outline-offset: 3px;
 }
 
+.site-music-notice {
+  position: fixed;
+  left: env(safe-area-inset-left, 0px);
+  bottom: env(safe-area-inset-bottom, 0px);
+  z-index: 99;
+  box-sizing: border-box;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px 12px;
+  max-width: min(400px, 100%);
+  padding: 8px 12px;
+  border: 1px solid var(--btn-default-border-color, #ccc);
+  background: var(--content-bg-color, #fff);
+  color: var(--text-color, #333);
+  box-shadow: 0 0 5px #0002;
+  font-size: 13px;
+  line-height: 1.5;
+}
+.site-music-notice[hidden] { display: none; }
+.site-music-notice button {
+  padding: 5px 10px;
+  border: 1px solid currentColor;
+  border-radius: 3px;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+}
+.site-music-notice button:disabled { cursor: wait; opacity: .6; }
+.site-music-notice :is(button, a):focus-visible { outline: 2px solid currentColor; outline-offset: 2px; }
+html.novel-focus .site-music { display: none !important; }
+
 @media (max-width: 767px) {
   html.site-player-ready {
     --site-player-space: calc(var(--site-player-height) + env(safe-area-inset-bottom, 0px) + 16px);
@@ -65,6 +98,9 @@ canvas { pointer-events: none !important; z-index: -1 !important; }
   }
   .sidebar-toggle { bottom: calc(var(--site-player-space) + 68px); }
   .back-to-top.back-to-top-on { bottom: calc(var(--site-player-space) + 16px); }
+  .site-music-notice { right: env(safe-area-inset-right, 0px); max-width: none; }
+  .site-music-notice button,
+  .site-music-notice a { box-sizing: border-box; display: inline-flex; align-items: center; min-height: 44px; }
   .aplayer.aplayer-fixed,
   .aplayer.aplayer-fixed .aplayer-body {
     max-width: none !important;
@@ -83,4 +119,8 @@ canvas { pointer-events: none !important; z-index: -1 !important; }
     overscroll-behavior: contain;
   }
   .aplayer .aplayer-list ol li { min-height: 44px; line-height: 44px !important; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  canvas { display: none !important; }
 }
