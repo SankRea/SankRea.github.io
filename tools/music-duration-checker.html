@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="zh-CN">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>博客歌单时长检查</title>
+<style>
+  body { max-width: 1050px; margin: 32px auto; padding: 0 18px; font: 15px/1.7 system-ui, sans-serif; color: #27352e; background: #fff; }
+  h1 { font-size: 25px; } button, input { font: inherit; padding: 5px 10px; }
+  .controls { display: flex; align-items: center; flex-wrap: wrap; gap: 12px; }
+  input { width: 60px; } progress { width: 100%; height: 18px; }
+  #folder { overflow-wrap: anywhere; } .table { overflow: auto; }
+  table { width: 100%; border-collapse: collapse; } th, td { padding: 9px; text-align: left; border-bottom: 1px solid #e1e6e3; }
+  th { white-space: nowrap; } tr[data-status="short"] { background: #fff3da; } tr[data-status="failed"] { background: #fff0f0; }
+  #message { min-height: 26px; } small { color: #59665e; }
+</style>
+<h1>博客歌单时长检查</h1>
+<p>读取当前歌单实际返回的音频时长，不播放音乐。少于 60 秒列入短曲，恰好 60 秒保留；失败单独记录。</p>
+<p><small>请保持此页面在前台，并让终端继续运行。浏览器读取元数据仍会产生网络流量，部分资源可能需要下载较多内容。此工具不会读取博客的短曲缓存，因此会检查完整歌单。</small></p>
+<div class="controls">
+  <button id="start">开始检测</button><button id="pause" disabled>暂停检测</button>
+  <label>同时检测 <input id="concurrency" type="number" min="1" max="4" value="2"> 首</label>
+  <label>单次超时 <input id="timeout" type="number" min="10" max="60" value="25"> 秒</label>
+</div>
+<p id="message" role="status">每首失败后自动重试一次；检测结果会逐首保存到本地。</p>
+<progress id="progress" value="0" max="1"></progress>
+<p id="summary"></p><p id="folder"></p>
+<div class="table"><table><thead><tr><th>序号</th><th>歌曲</th><th>歌手</th><th>秒数</th><th>状态</th></tr></thead><tbody id="rows"></tbody></table></div>
+<script>
+  'use strict';
+  const token = '__TOKEN__';
+  const startButton = document.querySelector('#start');
+  const pauseButton = document.querySelector('#pause');
+  const message = document.querySelector('#message');
+  const rows = document.querySelector('#rows');
+  let active = false;
+  let stopRequested = false;
+  const labels = { pending: '待检测', checking: '读取时长…', short: '不足 60 秒', ok: '保留', failed: '检测失败' };
+  async function api(path, data = {}) {
+    const response = await fetch(path, { method: 'POST', headers: { 'Content-Type': 'application/json', 'X-Checker-Token': token }, body: JSON.stringify(data) });
+    const result = await response.json();
+    if (!response.ok) throw new Error(result.error || '本地报告保存失败');
+    return result;
+  }
+  function updateSummary(summary) {
+    document.querySelector('#progress').max = summary.total;
+    document.querySelector('#progress').value = summary.checked;
+    document.querySelector('#summary').textContent = `已记录 ${summary.checked}/${summary.total} · 短曲 ${summary.short} · 保留 ${summary.long} · 失败 ${summary.failed} · 待检测 ${summary.pending}`;
+  }
+  function updateRow(row, status, seconds, detail = '') {
+    row.dataset.status = status;
+    row.cells[3].textContent = Number.isFinite(seconds) ? seconds.toFixed(3) : '—';
+    row.cells[4].textContent = labels[status] + (detail ? `：${detail}` : '');
+  }
+  function measure(url, timeout) {
+    return new Promise((resolve, reject) => {
+      if (!url) { reject(new Error('缺少有效 HTTPS 音频地址')); return; }
+      const audio = new Audio();
+      audio.muted = true;
+      audio.preload = 'metadata';
+      let done = false;
+      const finish = (error, duration) => {
+        if (done) return;
+        done = true;
+        clearTimeout(timer);
+        audio.onloadedmetadata = audio.ondurationchange = audio.onloadeddata = audio.onerror = null;
+        audio.pause();
+        audio.removeAttribute('src');
+        audio.load();
+        if (error) reject(error); else resolve(duration);
+      };
+      const read = () => {
+        const duration = audio.duration;
+        if (audio.readyState < 1 || !Number.isFinite(duration) || duration <= 0) return;
+        // A temporary Android duration of 1 is not enough evidence for a short track.
+        if (duration === 1 && audio.readyState < 2) return;
+        finish(null, duration);
+      };
+      const timer = setTimeout(() => finish(new Error('读取时长超时（不能据此判断为短曲）')), timeout);
+      audio.onloadedmetadata = audio.ondurationchange = audio.onloadeddata = read;
+      audio.onerror = () => {
+        const errors = { 1: '请求被中止', 2: '音频网络错误', 3: '音频解码失败', 4: '资源不可用或格式不支持' };
+        finish(new Error(errors[audio.error?.code] || '未知音频错误'));
+      };
+      // A cross-origin media element can read duration without granting JS access
+      // to the response body. Do not set crossOrigin or download the files via fetch.
+      audio.src = url;
+      audio.load();
+    });
+  }
+  pauseButton.addEventListener('click', () => {
+    stopRequested = true;
+    pauseButton.disabled = true;
+    message.textContent = '完成并保存正在检测的歌曲后暂停…';
+  });
+  startButton.addEventListener('click', async () => {
+    if (active) return;
+    active = true;
+    stopRequested = false;
+    startButton.disabled = true;
+    pauseButton.disabled = false;
+    message.textContent = '正在读取歌单…';
+    let saveFailed = false;
+    const concurrency = Math.max(1, Math.min(4, Number(document.querySelector('#concurrency').value) || 2));
+    const timeout = Math.max(10, Math.min(60, Number(document.querySelector('#timeout').value) || 25)) * 1000;
+    try {
+      const session = await api('/api/start');
+      document.querySelector('#folder').textContent = `报告目录：${session.folder}。请将 results.json 发给我；short-tracks.txt 为便于查看的名单。`;
+      updateSummary(session.summary);
+      rows.replaceChildren();
+      const rowMap = session.tracks.map(track => {
+        const row = rows.insertRow();
+        for (const value of [track.index + 1, track.name, track.artist, '—', '待检测']) row.insertCell().textContent = value;
+        const result = session.results[track.index];
+        if (result) updateRow(row, result.status, result.durationSeconds, result.error);
+        return row;
+      });
+      const pending = session.tracks.filter(track => !session.results[track.index]);
+      let cursor = 0;
+      message.textContent = '正在检测，不会播放音乐。';
+      async function worker() {
+        while (!stopRequested && cursor < pending.length) {
+          const track = pending[cursor++];
+          let seconds = null;
+          let error = '';
+          let attempts = 0;
+          for (let attempt = 1; attempt <= 2; attempt++) {
+            attempts = attempt;
+            updateRow(rowMap[track.index], 'checking', null, `第 ${attempt} 次`);
+            try { seconds = await measure(track.url, timeout); error = ''; break; }
+            catch (failure) { error = failure.message; }
+            if (stopRequested) break;
+          }
+          try {
+            const saved = await api('/api/result', { index: track.index, durationSeconds: seconds, error, attempts });
+            updateRow(rowMap[track.index], saved.record.status, seconds, saved.record.error);
+            updateSummary(saved.summary);
+          } catch (failure) {
+            stopRequested = true;
+            saveFailed = true;
+            message.textContent = `保存失败，已停止安排新检测：${failure.message}。请检查终端和磁盘后再继续。`;
+          }
+        }
+      }
+      await Promise.all(Array.from({ length: concurrency }, worker));
+      if (!saveFailed) message.textContent = stopRequested ? '已暂停；已检测结果已保存，点击继续检测可处理余下歌曲。' : '本轮检测完成，报告已保存。检测失败的歌曲未列入短曲名单。';
+    } catch (error) { message.textContent = `无法继续：${error.message}`; }
+    finally { active = false; startButton.disabled = false; startButton.textContent = '继续检测'; pauseButton.disabled = true; }
+  });
+  window.addEventListener('beforeunload', event => { if (active) { event.preventDefault(); event.returnValue = ''; } });
+</script>
+</html>

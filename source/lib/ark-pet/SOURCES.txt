@@ -1,0 +1,12 @@
+Vendored browser distributions, downloaded 2026-09-11. No build/install scripts executed.
+
+pixi-6.5.10.min.js:
+https://cdn.jsdelivr.net/npm/pixi.js@6.5.10/dist/browser/pixi.min.js
+License: PIXI-LICENSE.txt
+
+pixi-spine-3.8-3.1.2.js:
+https://cdn.jsdelivr.net/npm/@pixi-spine/all-3.8@3.1.2/dist/pixi-spine-3.8.umd.js
+License: SPINE-LICENSE.txt
+
+Game asset credits: /models/surtr-summer/CREDITS.txt
+Site-specific integration: /js/ark-pet.js and /css/ark-pet.css
