@@ -9,7 +9,6 @@
   <section class="novel-book-page" data-novel-book="{{ book.id | escape }}">
     <a class="novel-back" href="{{ url_for('novels/') | escape }}">← 返回藏书室</a>
     <header class="novel-book-intro">
-      {{ partial('novel-cover.njk', {book: book, number: '藏'}) }}
       <div>
         <p class="novel-eyebrow">{{ book.author | escape }} / 著</p>
         <h1>{{ book.title | escape }}</h1>

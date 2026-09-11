@@ -64,8 +64,6 @@ hexo.extend.generator.register('novels', function(locals) {
       description: definition.description || '',
       status: definition.status || '收录中',
       note: definition.note || '',
-      cover: definition.cover || '',
-      palette: ['forest', 'ocean', 'wine', 'sand'].includes(definition.palette) ? definition.palette : 'forest',
       path: `novels/${id}/`,
       chapters,
       count: chapters.length,

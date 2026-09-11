@@ -1,7 +1,0 @@
-<div class="novel-cover novel-cover--{{ book.palette | escape }}" aria-hidden="true">
-  {% if book.cover %}<img src="{{ url_for(book.cover) | escape }}" alt="" loading="lazy">{% endif %}
-  <span class="novel-cover-number">{{ number }}</span>
-  <span class="novel-cover-orbit"></span>
-  <span class="novel-cover-title">{{ book.title | escape }}</span>
-  <span class="novel-cover-author">{{ book.author | escape }} / 著</span>
-</div>
