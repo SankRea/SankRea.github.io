@@ -1,12 +1,17 @@
 (() => {
   'use strict';
   if (window.arkPetInstalled) return;
+  const mobileLayout = matchMedia('(max-width: 767px), (hover: none) and (pointer: coarse)');
+  const mobileDevice = navigator.userAgentData?.mobile === true
+    || /Android|iPhone|iPad|iPod/i.test(navigator.userAgent)
+    || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+  // Do not even create the widget or launcher on phones/tablets. UA detection
+  // also covers mobile browsers that report a wide desktop-style viewport.
+  if (mobileDevice || mobileLayout.matches) return;
   window.arkPetInstalled = true;
 
   const storageKey = 'ark-pet:surtr-summer:v1';
   const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
-  // Include touch-only phones in landscape, where the viewport can exceed 767px.
-  const mobileLayout = matchMedia('(max-width: 767px), (hover: none) and (pointer: coarse)');
   let saved = {};
   try { saved = JSON.parse(localStorage.getItem(storageKey)) || {}; } catch {}
   let enabled = saved.enabled !== false;
