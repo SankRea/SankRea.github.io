@@ -1,0 +1,26 @@
+Character: Surtr / 史尔特尔 — 珊瑚海岸 IX (350_surtr_summer#9)
+Type: Arknights building chibi (Spine 3.8)
+Game character and artwork copyright: Hypergryph / 鹰角网络.
+This is an unofficial fan-site decoration, not an official endorsement.
+
+Source: https://github.com/isHarryh/Ark-Models/tree/3745e5c6e10b5252b2a5e1f1841ebef62b7ef15b/models/350_surtr_summer%239
+Downloaded: 2026-09-11
+Original files: build_char_350_surtr_summer#9.{atlas,skel,png}
+Stored as: model.{atlas,skel,png}; content unchanged.
+The loader maps the original atlas page name to model.png explicitly.
+Textures are premultiplied alpha (PMA).
+Public availability of game files does not grant an independent artwork license.
+
+Browser rendering: PixiJS 6.5.10 (MIT) + @pixi-spine/all-3.8 3.1.2 (SPINE-LICENSE).
+Runtime license copies are in /lib/ark-pet/.
+
+Japanese voice: https://github.com/isHarryh/Ark-Voice
+Pinned commit: 79584841f7a28f9d029ec2dc1b72444bce87eb1e
+Source file: voice/char_350_surtr.ogg (stored unchanged as voice-jp.ogg)
+Clip timings: voice_data.json -> data.char_350_surtr.variations.JP
+voice-jp.json selects CN_002, CN_003, CN_004, CN_010, CN_034, CN_036, CN_042.
+The CN_ prefix is an upstream clip identifier; the chosen audio language is JP.
+Each duration is calculated from the next clip start (or the recording duration).
+Downloaded: 2026-09-11
+Audio copyright: 上海鹰角网络有限公司. The source repository prohibits commercial
+use and harm to the copyright holder's interests. This is not a blanket reuse license.

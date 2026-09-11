@@ -1,0 +1,34 @@
+.ark-pet,
+.ark-pet-launcher { position: fixed; right: 76px; bottom: max(96px, calc(var(--site-player-height, 66px) + env(safe-area-inset-bottom, 0px) + 28px)); z-index: 110; }
+.ark-pet { width: 220px; color: #303536; font: 12px/1.6 system-ui, sans-serif; }
+.ark-pet[hidden],
+.ark-pet-launcher[hidden],
+.ark-pet [hidden] { display: none !important; }
+.ark-pet-header { display: flex; align-items: center; justify-content: flex-end; gap: 6px; }
+.ark-pet-header span { margin-right: auto; padding: 3px 8px; border-radius: 12px; background: #fffffff0; }
+.ark-pet button,
+.ark-pet-launcher { padding: 5px 10px; border: 1px solid #dce2df; border-radius: 16px; background: #fff; color: #456851; font: 12px/1.6 system-ui, sans-serif; cursor: pointer; }
+.ark-pet button:disabled { cursor: wait; opacity: .6; }
+.ark-pet :focus-visible,
+.ark-pet-launcher:focus-visible { outline: 2px solid #456851; outline-offset: 3px; }
+.ark-pet-stage { width: 220px; height: 220px; cursor: grab; touch-action: none; user-select: none; -webkit-user-select: none; }
+.ark-pet-stage:active { cursor: grabbing; }
+.ark-pet-actions { display: flex; justify-content: center; gap: 6px; padding-top: 4px; }
+/* Preserve both rows' height so revealing controls does not move the gravity floor. */
+.ark-pet :is(.ark-pet-header, .ark-pet-actions) { visibility: hidden; pointer-events: none; }
+.ark-pet:has(:focus-visible) :is(.ark-pet-header, .ark-pet-actions),
+.ark-pet-actions-open :is(.ark-pet-header, .ark-pet-actions) { visibility: visible; pointer-events: auto; }
+@media (hover: hover) {
+  .ark-pet:hover :is(.ark-pet-header, .ark-pet-actions) { visibility: visible; pointer-events: auto; }
+}
+/* site.css sends decorative canvases behind the page; this one belongs in the widget. */
+.ark-pet .ark-pet-stage canvas { position: relative; display: block; width: 220px; height: 220px; z-index: 0 !important; pointer-events: none !important; }
+.ark-pet-status { margin: 6px 0; padding: 8px 10px; border: 1px solid #dce2df; border-radius: 8px; background: #fff; }
+.ark-pet-voice-notice { position: absolute; bottom: 100%; left: 0; right: 0; margin: 0 0 6px; padding: 8px 10px; border: 1px solid #dce2df; border-radius: 8px; background: #fff; pointer-events: none; }
+html.novel-focus .ark-pet,
+html.novel-focus .ark-pet-launcher { display: none !important; }
+@media (max-width: 767px) {
+  .ark-pet, .ark-pet-launcher { right: 60px; }
+  .ark-pet-header { min-height: 44px; }
+  .ark-pet button, .ark-pet-launcher { min-height: 44px; }
+}
