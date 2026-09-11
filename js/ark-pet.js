@@ -5,6 +5,8 @@
 
   const storageKey = 'ark-pet:surtr-summer:v1';
   const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
+  // Include touch-only phones in landscape, where the viewport can exceed 767px.
+  const mobileLayout = matchMedia('(max-width: 767px), (hover: none) and (pointer: coarse)');
   let saved = {};
   try { saved = JSON.parse(localStorage.getItem(storageKey)) || {}; } catch {}
   let enabled = saved.enabled !== false;
@@ -63,7 +65,7 @@
   muteButton.hidden = true;
 
   const isHome = () => Boolean(document.querySelector('.main-inner.index [data-welcome-copy]'))
-    && !document.documentElement.classList.contains('novel-focus');
+    && !mobileLayout.matches && !document.documentElement.classList.contains('novel-focus');
   function remember() {
     try { localStorage.setItem(storageKey, JSON.stringify({ enabled, voiceMuted, ...position })); } catch {}
   }
@@ -517,12 +519,13 @@
     sync();
     const connection = navigator.connection;
     if (!attempted && enabled && isHome() && !document.hidden && !reducedMotion.matches
-      && !matchMedia('(max-width: 767px)').matches && !connection?.saveData
+      && !connection?.saveData
       && !/^(slow-)?2g$/.test(connection?.effectiveType || '')) {
       summon();
     }
   }
   document.addEventListener('pjax:success', refresh);
+  mobileLayout.addEventListener('change', refresh);
   document.addEventListener('visibilitychange', refresh);
   window.addEventListener('pagehide', () => { stopVoice(); cancelVoicePreparation(); });
   window.addEventListener('pageshow', event => { if (event.persisted) refresh(); });
