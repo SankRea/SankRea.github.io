@@ -27,8 +27,6 @@
 .ark-pet-voice-notice { position: absolute; bottom: 100%; left: 0; right: 0; margin: 0 0 6px; padding: 8px 10px; border: 1px solid #dce2df; border-radius: 8px; background: #fff; pointer-events: none; }
 html.novel-focus .ark-pet,
 html.novel-focus .ark-pet-launcher { display: none !important; }
-@media (max-width: 767px) {
-  .ark-pet, .ark-pet-launcher { right: 60px; }
-  .ark-pet-header { min-height: 44px; }
-  .ark-pet button, .ark-pet-launcher { min-height: 44px; }
+@media (max-width: 767px), (hover: none) and (pointer: coarse) {
+  .ark-pet, .ark-pet-launcher { display: none !important; }
 }

@@ -5,12 +5,19 @@
 
   const storageKey = 'ark-pet:surtr-summer:v1';
   const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
+  // Include touch-only phones in landscape, where the viewport can exceed 767px.
+  const mobileLayout = matchMedia('(max-width: 767px), (hover: none) and (pointer: coarse)');
   let saved = {};
   try { saved = JSON.parse(localStorage.getItem(storageKey)) || {}; } catch {}
   let enabled = saved.enabled !== false;
   let voiceMuted = saved.voiceMuted === true;
   let voiceContext;
   let voiceLoad;
+  let voiceClips;
+  let voiceController;
+  let voiceDelay;
+  let voiceIdle;
+  let voiceFailed = false;
   let voiceSource;
   let voiceGain;
   let voiceTicket = 0;
@@ -55,9 +62,10 @@
   const actionBar = host.querySelector('.ark-pet-actions');
   const muteButton = host.querySelector('[data-pet-mute]');
   const voiceNotice = host.querySelector('.ark-pet-voice-notice');
+  muteButton.hidden = true;
 
   const isHome = () => Boolean(document.querySelector('.main-inner.index [data-welcome-copy]'))
-    && !document.documentElement.classList.contains('novel-focus');
+    && !mobileLayout.matches && !document.documentElement.classList.contains('novel-focus');
   function remember() {
     try { localStorage.setItem(storageKey, JSON.stringify({ enabled, voiceMuted, ...position })); } catch {}
   }
@@ -89,6 +97,10 @@
     muteButton.textContent = voiceMuted ? '已静音' : '语音开';
     muteButton.setAttribute('aria-pressed', String(voiceMuted));
     muteButton.setAttribute('aria-label', voiceMuted ? '开启角色语音' : '静音角色语音');
+    muteButton.hidden = !voiceClips;
+    stage.setAttribute('aria-label', voiceClips && !voiceMuted
+      ? '戳一戳史尔特尔并播放日文语音；拖动后松手可自由下落'
+      : '戳一戳史尔特尔；拖动后松手可自由下落');
     if (app) {
       if (host.hidden || document.hidden) { releaseDrag(); app.stop(); }
       else app.start();
@@ -97,6 +109,30 @@
       button.disabled = !pet || !actions[button.dataset.petAction];
     });
     place();
+    if (!pet || host.hidden || document.hidden) cancelVoicePreparation();
+    else scheduleVoices();
+  }
+
+  function cancelVoicePreparation() {
+    clearTimeout(voiceDelay);
+    voiceDelay = undefined;
+    if (voiceIdle !== undefined) window.cancelIdleCallback(voiceIdle);
+    voiceIdle = undefined;
+    voiceController?.abort();
+  }
+  function scheduleVoices() {
+    if (!pet || loading || host.hidden || document.hidden || voiceClips || voiceLoad || voiceFailed
+      || voiceDelay !== undefined || voiceIdle !== undefined) return;
+    // Give the visible model time to render and animate before requesting any audio.
+    voiceDelay = setTimeout(() => {
+      voiceDelay = undefined;
+      const prepare = () => {
+        voiceIdle = undefined;
+        if (pet && !host.hidden && !document.hidden && isHome()) loadVoices();
+      };
+      if ('requestIdleCallback' in window) voiceIdle = window.requestIdleCallback(prepare, { timeout: 1500 });
+      else prepare();
+    }, 3000);
   }
 
   function showVoiceNotice(message, duration = 4000) {
@@ -120,19 +156,25 @@
     if (voiceLoad) return voiceLoad;
     voiceLoad = (async () => {
       const abort = new AbortController();
-      const timeout = setTimeout(() => abort.abort(), 20000);
+      voiceController = abort;
+      const timeout = setTimeout(() => abort.abort(new DOMException('语音加载超时', 'TimeoutError')), 20000);
       try {
         const read = async (path, format) => {
           const response = await fetch(`/models/surtr-summer/${path}`, { signal: abort.signal });
-          if (!response.ok) throw new Error('语音加载失败，再戳一下重试。');
+          if (!response.ok) throw new Error('语音加载失败。');
           return response[format]();
         };
         const [manifest, bytes] = await Promise.all([
           read('voice-jp.json', 'json'), read('voice-jp.ogg', 'arrayBuffer')
         ]);
+        // Decode without opening a live audio output or needing a user gesture.
+        const Decoder = window.OfflineAudioContext || window.webkitOfflineAudioContext;
+        if (!Decoder) throw new Error('当前浏览器不支持角色语音解码。');
+        const decoder = new Decoder(1, 1, 44100);
         let recording;
-        try { recording = await voiceContext.decodeAudioData(bytes); }
+        try { recording = await decoder.decodeAudioData(bytes); }
         catch { throw new Error('无法解码日文语音，请尝试更新浏览器。'); }
+        if (abort.signal.aborted) throw abort.signal.reason;
         if (!Array.isArray(manifest.clips) || !manifest.clips.length) throw new Error('语音索引不可用。');
         // Keep only the selected phrases in memory after decoding the combined recording.
         return manifest.clips.map(clip => {
@@ -142,17 +184,34 @@
           }
           const from = Math.round(clip.start * recording.sampleRate);
           const to = Math.min(recording.length, Math.round((clip.start + clip.duration) * recording.sampleRate));
-          const buffer = voiceContext.createBuffer(recording.numberOfChannels, to - from, recording.sampleRate);
+          const buffer = decoder.createBuffer(recording.numberOfChannels, to - from, recording.sampleRate);
           for (let channel = 0; channel < recording.numberOfChannels; channel++) {
             buffer.copyToChannel(recording.getChannelData(channel).subarray(from, to), channel);
           }
           return buffer;
         });
-      } finally { clearTimeout(timeout); }
-    })().catch(error => { voiceLoad = null; throw error; });
+      } finally {
+        clearTimeout(timeout);
+        abort.abort();
+      }
+    })().then(clips => { voiceClips = clips; voiceFailed = false; }).catch(error => {
+      // Cancellation can resume on return; actual errors wait for another poke.
+      voiceFailed = error.name !== 'AbortError';
+      if (voiceFailed) console.warn('[ArkPet voice]', error);
+    }).finally(() => {
+      voiceLoad = null;
+      voiceController = null;
+      sync();
+    });
     return voiceLoad;
   }
   async function playVoice() {
+    if (!voiceClips) {
+      // A poke before preparation finishes only animates; never play it later.
+      voiceFailed = false;
+      scheduleVoices();
+      return;
+    }
     if (voiceMuted || host.hidden || document.hidden || !isHome()) return;
     stopVoice();
     const ticket = voiceTicket;
@@ -166,9 +225,8 @@
         voiceGain.connect(voiceContext.destination);
       }
       // Resume synchronously in the click/key handler, before any fetch or decode await.
-      const resume = voiceContext.resume();
-      if (!voiceLoad) showVoiceNotice('首次加载日文语音…', 20000);
-      const [, clips] = await Promise.all([resume, loadVoices()]);
+      await voiceContext.resume();
+      const clips = voiceClips;
       if (ticket !== voiceTicket || voiceMuted || host.hidden || document.hidden || !isHome()) return;
       if (voiceContext.state !== 'running') throw new Error('浏览器暂停了语音，再戳一下试试。');
       const candidates = clips.map((_, index) => index).filter(index => index !== lastVoice);
@@ -296,6 +354,7 @@
     return response[type]();
   }
   function dispose() {
+    cancelVoicePreparation();
     stopVoice();
     releaseDrag();
     if (app) app.destroy(true, { children: true, texture: false, baseTexture: false });
@@ -460,14 +519,15 @@
     sync();
     const connection = navigator.connection;
     if (!attempted && enabled && isHome() && !document.hidden && !reducedMotion.matches
-      && !matchMedia('(max-width: 767px)').matches && !connection?.saveData
+      && !connection?.saveData
       && !/^(slow-)?2g$/.test(connection?.effectiveType || '')) {
       summon();
     }
   }
   document.addEventListener('pjax:success', refresh);
+  mobileLayout.addEventListener('change', refresh);
   document.addEventListener('visibilitychange', refresh);
-  window.addEventListener('pagehide', stopVoice);
+  window.addEventListener('pagehide', () => { stopVoice(); cancelVoicePreparation(); });
   window.addEventListener('pageshow', event => { if (event.persisted) refresh(); });
   window.addEventListener('resize', place, { passive: true });
   // The music bar can change height without a window resize.
